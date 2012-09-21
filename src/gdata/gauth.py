@@ -675,10 +675,10 @@ def generate_hmac_signature(http_request, consumer_key, consumer_secret,
     hash_key = '%s&' % urllib.quote(consumer_secret, safe='~')
   try:
     import hashlib
-    hashed = hmac.new(hash_key, base_string, hashlib.sha1)
+    hashed = hmac.new(str(hash_key), base_string, hashlib.sha1)
   except ImportError:
     import sha
-    hashed = hmac.new(hash_key, base_string, sha)
+    hashed = hmac.new(str(hash_key), base_string, sha)
   # Python2.3 does not have base64.b64encode.
   if hasattr(base64, 'b64encode'):
     return base64.b64encode(hashed.digest())
